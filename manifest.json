@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "D&D Beyond Character Export",
+  "version": "0.1",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.dndbeyond.com/profile/*/characters/*"
+      ],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [ "tabs", "activeTab", "storage" ]
+}
