@@ -81,13 +81,52 @@ function hijack(callback) {
   callback();
 }
 
+var executeCallback = function() {
+  var dataCallback = function()  {
+    chrome.runtime.sendMessage({
+      "message": "data_fetched", "data":
+      JSON.parse(localStorage.getItem("__reactExport"))
+    });
+  };
+  hijack(dataCallback);
+};
+
 var messageCallback = function(request, sender, sendResponse) {
-    if (request.message == "clicked_browser_action") {
-      var dataCallback = function()  {
-        chrome.runtime.sendMessage({"message": "data_fetched", "data": JSON.parse(localStorage.getItem("__reactExport"))});
-      };
-      hijack(dataCallback);
+  if (request.message == "clicked_browser_action") {
+    executeCallback();
+  };
+
+  if (request.message == "browser_loaded") {
+    addHook();
   };
 };
 
 chrome.runtime.onMessage.addListener(messageCallback);
+
+var addHook = function() {
+  var targetElement = document.getElementsByClassName("character-info")[0];
+
+  if(targetElement) {
+    targetElement.addEventListener("click", addButton, false);
+  } else {
+    setTimeout(addHook, 500);
+  }
+};
+
+var addButton = function() {
+  var targetElement = document.getElementsByClassName("popout-menu")[0];
+
+  if(targetElement) {
+    var elt = document.createElement("div")
+    elt.className = "popout-menu-item"
+    elt.innerHTML = `<div class="popout-menu-item-preview">
+        <i class="i-menu-downloadpdf" style="background-size: 16px 16px;"></i>
+      </div>
+      <div class="popout-menu-item-label">Export Features</div>`;
+    elt.addEventListener("click", executeCallback, false);
+    targetElement.appendChild(elt);
+  } else {
+    setTimeout(addButton, 500);
+  }
+};
+

@@ -5,6 +5,13 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   })
 });
 
+chrome.tabs.onUpdated.addListener( function(tabId, changeInfo, tab) {
+  if (changeInfo.status == "complete" && tab.active) {
+    console.log("Sending message to tab");
+    chrome.tabs.sendMessage(tabId, {"message": "browser_loaded"});
+  }
+});
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.message == "data_fetched" ) {

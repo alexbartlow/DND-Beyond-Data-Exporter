@@ -2,11 +2,10 @@
 var InitCharacter = (data) => {
   window.lastCharacterRendered = data;
   document.getElementById('app').innerHTML = Handlebars.templates["template.hbs"](data);
+  setTimeout(window.print, 100);
 };
 
 chrome.runtime.onMessage.addListener( (request, sender, sendResponse) => {
-  console.log(request);
-
   InitCharacter(JSON.parse(request.data));
 });
 
