@@ -1,6 +1,20 @@
 # DND-Beyond-Data-Exporter
 Export character features as a PDF for offline use.
 
-I want to be able to export my D&D beyond content to a PDF for use around the table, for myself and also for my home-game players. So I wrote this extension: once installed, you'll have another option in the drop-down to export all of your character's features, feats, and spells to a PDF for easy access, so you don't have to bring a laptop to use D&D beyond at the table if you don't want to.
+Turns this:
+
+![before](https://raw.githubusercontent.com/alexbartlow/DND-Beyond-Data-Exporter/preview/before.png)
+
+Into this:
+
+![after](https://raw.githubusercontent.com/alexbartlow/DND-Beyond-Data-Exporter/preview/after.png)
+
+Exports class features, feats, and spells known.
+
+## Usage:
+
+Navigate to your character, and then use the "Export Features" button, just below the export sheet button:
+
+![button](https://raw.githubusercontent.com/alexbartlow/DND-Beyond-Data-Exporter/preview/button.png)
 
 Please open an issue on github if you notice any problems.
