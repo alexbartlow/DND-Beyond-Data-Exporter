@@ -1,0 +1,87 @@
+{{#*inline "classFeature"}}
+  <div class="class-feature">
+    <h3>{{ name }}</h3>
+    <div class="class-feature--description">
+      {{{ description }}}
+    </div>
+    {{#if choices}}
+      <ul class="class-feature--choices">
+        {{#each choices}}
+          <li>{{ . }}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+
+    {{#if options}}
+      {{#each options}}
+        <h5>{{ name }}</h6>
+        <p>{{{ description }}}</p>
+      {{/each}}
+    {{/if}}
+  </div>
+{{/inline}}
+
+{{#*inline "spellBlock"}}
+  <div class="spell-block">
+    <div class="spell-block--section">
+      <h4>{{ name }}</h4>
+      <em>
+        {{#if isCantrip}}
+          {{ school }} Cantrip
+        {{else}}
+          Level {{ level }} {{ school }}
+        {{/if}}
+      </em>
+      <hr>
+      <ul>
+        <li><strong> Casting Time: </strong> {{ castingTime.castingTimeInterval }} {{ castingTime.castingTimeUnit }}</li>
+        <li>
+          <strong> Range: </strong>
+          {{#with range}}
+            {{#equals origin "Ranged"}}
+              {{ rangeValue }}ft
+            {{/equals}}
+
+            {{#equals origin "Touch"}}
+              Touch
+            {{/equals}}
+
+            {{#if aoeType}}/{{aoeValue}}ft {{aoeType}}{{/if}}
+          {{/with}}
+        </li>
+        <li><strong> Components: </strong> {{ components }} {{ componentsDescription }}</li>
+        <li>
+          <strong> Duration: </strong>
+          {{#with duration}}
+            {{#if durationType}} {{durationType}} {{/if}}
+            {{#if durationInterval}} {{durationInterval}} {{/if}}
+            {{#if durationUnit}} {{durationUnit}} {{/if}}
+          {{/with}}
+        </li>
+      </ul>
+    </div>
+
+    {{{ description }}}
+  </div>
+{{/inline}}
+
+<div class="phb-sheet">
+  <h2>Class Features</h2>
+  {{#each classFeatures}}
+    {{>classFeature}}
+  {{/each}}
+
+  {{#present feats}}
+  <h2>Feats</h2>
+  {{/present}}
+  {{#each feats}}
+    {{>classFeature}}
+  {{/each}}
+
+  {{#present spells}}
+  <h2>Spells</h2>
+  {{/present}}
+  {{#each spells}}
+    {{>spellBlock}}
+  {{/each}}
+</div>

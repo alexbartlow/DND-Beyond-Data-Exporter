@@ -7,11 +7,13 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log("Got data fetched message");
     if (request.message == "data_fetched" ) {
       chrome.tabs.create({"url": chrome.runtime.getURL("export.html")}, function (tab) {
-        chrome.tabs.sendMessage(tab.id, {"message": "load_data", data: JSON.stringify(request.data)});
+        setTimeout(function() {
+          chrome.tabs.sendMessage(tab.id, {"message": "load_data", data: JSON.stringify(request.data)});
+        }, 1000);
       });
     }
   }
 );
+

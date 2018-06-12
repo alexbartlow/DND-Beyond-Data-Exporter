@@ -1,6 +1,13 @@
 function hijack(callback) {
   "use strict"
   var code = function() {
+    var mapSpell = function(spell) {
+      var ret = spell.definition;
+      ret.isCantrip = spell.definition.level === 0;
+
+      return ret;
+    };
+
     var FindReact = function(dom) {
         for (var key in dom) {
             if (key.startsWith("__reactInternalInstance$")) {
@@ -16,6 +23,7 @@ function hijack(callback) {
     var element = FindReact(document.getElementsByClassName('character-sheet')[0]);
     var entities = element._reactInternalInstance._context.store.getState().character.entities;
     var modifiers = entities.modifier;
+    console.log(entities);
 
     var data = {
       classFeatures: [],
@@ -23,25 +31,31 @@ function hijack(callback) {
       spells: []
     };
 
+    var ignoredFeatures = ["Ability Score Improvement", "Proficiencies", "Hit Points"]
+
     for ( var classKey in entities.classFeature ) {
       var feature = entities.classFeature[classKey];
-      data.classFeatures.push({
-        'name': feature.definition.name,
-        'description': feature.definition.description,
-        'choices': feature.dynamicModifiers.map(function(modifier) {
-          return modifiers[modifier].friendlySubtypeName
-        })
-      });
+      if(ignoredFeatures.indexOf(feature.definition.name) === -1) {
+        data.classFeatures.push({
+          'name': feature.definition.name,
+          'description': feature.definition.description,
+          'choices': feature.dynamicModifiers.map(function(modifier) {
+            return modifiers[modifier].friendlySubtypeName
+          }),
+          'options': feature.options
+        });
+      }
     }
 
     for ( var featKey in entities.feat ) {
       var feat = entities.feat[featKey];
       data.feats.push({
-        'name': feat.definition,
+        'name': feat.definition.name,
         'description': feat.definition.description,
         'choices': feat.dynamicModifiers.map(function(modifier) {
           return modifiers[modifier].friendlySubtypeName
-        })
+        }),
+        'options': feat.options
       });
     }
 
@@ -52,7 +66,7 @@ function hijack(callback) {
       if (spellManager) {
         Array.prototype.push.apply(
           data.spells,
-          spellManager.props.spells.map(function(spell) { return spell.definition; })
+          spellManager.props.spells.map(function(spell) { return mapSpell(spell); })
         );
       }
     }
