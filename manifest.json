@@ -1,10 +1,15 @@
 {
   "manifest_version": 2,
-  "name": "D&D Beyond Character Export",
-  "version": "0.1",
-  "page_action": {
-    "default_icon": "icon.png",
-    "default_title": "Export Sheet"
+  "name": "D&D Beyond Character Feature Exports",
+  "version": "0.9",
+  "description": "Export full character data to a PDF, so you can easily print your D&D Beyond characters and run them analog.",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
   },
   "content_scripts": [
     {
@@ -15,8 +20,7 @@
     }
   ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "scripts": ["background.js"]
   },
-  "permissions": [ "declarativeContent", "tabs", "activeTab", "storage" ]
+  "permissions": [ "tabs", "activeTab", "storage" ]
 }
