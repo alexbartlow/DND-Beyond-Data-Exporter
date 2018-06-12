@@ -3,11 +3,11 @@ Export character features as a PDF for offline use.
 
 Turns this:
 
-![before](https://raw.githubusercontent.com/alexbartlow/DND-Beyond-Data-Exporter/preview/before.png)
+![before](https://github.com/alexbartlow/DND-Beyond-Data-Exporter/raw/master/preview/before.png)
 
 Into this:
 
-![after](https://raw.githubusercontent.com/alexbartlow/DND-Beyond-Data-Exporter/preview/after.png)
+![after](https://github.com/alexbartlow/DND-Beyond-Data-Exporter/raw/master/preview/after.png)
 
 Exports class features, feats, and spells known.
 
@@ -15,6 +15,6 @@ Exports class features, feats, and spells known.
 
 Navigate to your character, and then use the "Export Features" button, just below the export sheet button:
 
-![button](https://raw.githubusercontent.com/alexbartlow/DND-Beyond-Data-Exporter/preview/button.png)
+![button](https://github.com/alexbartlow/DND-Beyond-Data-Exporter/raw/master/preview/button.png)
 
 Please open an issue on github if you notice any problems.
